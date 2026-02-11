@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABSEN BERGADANG BULAN PUASA</title>
+
+<style>
+body{
+margin:0;
+font-family:Poppins,Arial;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:#fff;
+}
+.container{max-width:900px;margin:auto;padding:20px;}
+.card{
+background:rgba(255,255,255,.07);
+backdrop-filter:blur(15px);
+border-radius:20px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 15px 30px rgba(0,0,0,.4);
+}
+h1{
+text-align:center;
+background:linear-gradient(90deg,#38bdf8,#6366f1);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+input,button{
+width:100%;
+padding:12px;
+margin:6px 0;
+border-radius:12px;
+border:none;
+}
+input{background:#0f172a;color:#fff;border:1px solid #334155;}
+button{font-weight:bold;cursor:pointer;}
+.primary{background:#2563eb;color:#fff;}
+.danger{background:#dc2626;color:#fff;}
+table{width:100%;margin-top:10px;border-collapse:collapse;}
+th,td{padding:6px;text-align:center;font-size:12px;}
+img{width:60px;border-radius:10px;}
+video{width:100%;border-radius:15px;margin-top:10px;}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="loginPage">
+<div class="card">
+<h1>🌙 ABSEN BERGADANG BULAN PUASA</h1>
+<input id="namaLogin" placeholder="Masukkan Nama">
+<button class="primary" onclick="masuk()">Masuk</button>
+<p style="font-size:12px;">Admin: <b>NIAZI</b></p>
+</div>
+</div>
+
+<div class="container" id="mainPage" style="display:none;">
+
+<div class="card">
+<h3>Dashboard</h3>
+<p>Tanggal: <span id="tanggal"></span></p>
+<p>Login sebagai: <b id="roleInfo"></b></p>
+<button class="danger" onclick="logout()">Keluar</button>
+</div>
+
+<div class="card">
+<h3>📸 Kamera Selfie</h3>
+<video id="video" autoplay playsinline></video>
+<button class="primary" onclick="ambilFoto()">Ambil Selfie & Absen</button>
+<canvas id="canvas" style="display:none;"></canvas>
+</div>
+
+<div class="card">
+<h3>Data Absensi Hari Ini</h3>
+<table>
+<thead>
+<tr>
+<th>Nama</th>
+<th>Jam</th>
+<th>Status</th>
+<th>Lokasi</th>
+<th>Foto</th>
+</tr>
+</thead>
+<tbody id="list"></tbody>
+</table>
+</div>
+
+</div>
+
+<script>
+let db = JSON.parse(localStorage.getItem("absenPuasa")) || [];
+let today = new Date().toLocaleDateString();
+let currentUser = "";
+let fotoData = "";
+let lokasiData = "";
+
+tanggal.innerText = today;
+
+function masuk(){
+if(!namaLogin.value) return alert("Masukkan nama dulu");
+currentUser = namaLogin.value;
+loginPage.style.display="none";
+mainPage.style.display="block";
+roleInfo.innerText = currentUser;
+startCamera();
+render();
+}
+
+function startCamera(){
+navigator.mediaDevices.getUserMedia({
+video:{facingMode:"user"}
+})
+.then(stream=>{
+video.srcObject = stream;
+})
+.catch(()=>{
+alert("Kamera tidak diizinkan atau harus pakai HTTPS / Live Server");
+});
+}
+
+function ambilFoto(){
+canvas.width = video.videoWidth;
+canvas.height = video.videoHeight;
+canvas.getContext("2d").drawImage(video,0,0);
+fotoData = canvas.toDataURL("image/png");
+
+navigator.geolocation.getCurrentPosition(pos=>{
+lokasiData =
+pos.coords.latitude.toFixed(5)+","+
+pos.coords.longitude.toFixed(5);
+
+simpanAbsen();
+
+},{
+enableHighAccuracy:true,
+timeout:10000
+});
+}
+
+function simpanAbsen(){
+db.push({
+nama:currentUser,
+tanggal:today,
+jam:new Date().toLocaleTimeString(),
+status:new Date().getHours()>8?"Terlambat":"Tepat Waktu",
+lokasi:lokasiData,
+foto:fotoData
+});
+
+localStorage.setItem("absenPuasa",JSON.stringify(db));
+render();
+alert("Absensi berhasil!");
+}
+
+function render(){
+list.innerHTML="";
+db.forEach(d=>{
+if(d.tanggal==today){
+list.innerHTML+=`
+<tr>
+<td>${d.nama}</td>
+<td>${d.jam}</td>
+<td>${d.status}</td>
+<td>${d.lokasi}</td>
+<td><img src="${d.foto}"></td>
+</tr>
+`;
+}
+});
+}
+
+function logout(){
+location.reload();
+}
+</script>
+
+</body>
+</html>
