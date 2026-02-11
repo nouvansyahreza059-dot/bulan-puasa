@@ -1,180 +1,278 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ABSEN BERGADANG BULAN PUASA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARSIP BEGADANG RAMADHAN - LEVEL DEWA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-body{
-margin:0;
-font-family:Poppins,Arial;
-background:linear-gradient(135deg,#0f172a,#1e293b);
-color:#fff;
-}
-.container{max-width:900px;margin:auto;padding:20px;}
-.card{
-background:rgba(255,255,255,.07);
-backdrop-filter:blur(15px);
-border-radius:20px;
-padding:20px;
-margin-bottom:20px;
-box-shadow:0 15px 30px rgba(0,0,0,.4);
-}
-h1{
-text-align:center;
-background:linear-gradient(90deg,#38bdf8,#6366f1);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-input,button{
-width:100%;
-padding:12px;
-margin:6px 0;
-border-radius:12px;
-border:none;
-}
-input{background:#0f172a;color:#fff;border:1px solid #334155;}
-button{font-weight:bold;cursor:pointer;}
-.primary{background:#2563eb;color:#fff;}
-.danger{background:#dc2626;color:#fff;}
-table{width:100%;margin-top:10px;border-collapse:collapse;}
-th,td{padding:6px;text-align:center;font-size:12px;}
-img{width:60px;border-radius:10px;}
-video{width:100%;border-radius:15px;margin-top:10px;}
-</style>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark-royal: #0a0e17;
+            --crimson: #8b0000;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #020617 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #111, #000);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            margin: 0;
+            color: var(--gold);
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .panel {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 10px;
+        }
+
+        input {
+            padding: 12px;
+            margin: 8px 0;
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            font-family: 'Cinzel', serif;
+        }
+
+        .btn-gold { background: var(--gold); color: #000; width: 100%; }
+        .btn-gold:hover { background: #f1c40f; transform: translateY(-2px); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+        }
+
+        .card img {
+            width: 100px; height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Status Colors Mapping */
+        .status-standby { background: #16a34a; }
+        .status-tumbang { background: #ca8a04; }
+        .status-ghoib { background: #dc2626; }
+        .status-sahur { background: #7c3aed; }
+        .status-tadarus { background: #0891b2; }
+        .status-tidur { background: #475569; }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+
+        .btn-action { font-size: 10px; padding: 8px; color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .bg-standby { background: #16a34a; }
+        .bg-tumbang { background: #ca8a04; }
+        .bg-ghoib { background: #dc2626; }
+        .bg-sahur { background: #7c3aed; }
+        .bg-tadarus { background: #0891b2; }
+    </style>
 </head>
-
 <body>
 
-<div class="container" id="loginPage">
-<div class="card">
-<h1>🌙 ABSEN BERGADANG BULAN PUASA</h1>
-<input id="namaLogin" placeholder="Masukkan Nama">
-<button class="primary" onclick="masuk()">Masuk</button>
-<p style="font-size:12px;">Admin: <b>NIAZI</b></p>
-</div>
-</div>
+<header>
+    <h1>ABSEN BEGADANG BULAN PUASA</h1>
+    <p style="color: var(--gold); font-size: 10px; letter-spacing: 2px;">PANTAU PEJUANG SAHUR & PENJAGA MALAM</p>
+</header>
 
-<div class="container" id="mainPage" style="display:none;">
+<div class="container">
 
-<div class="card">
-<h3>Dashboard</h3>
-<p>Tanggal: <span id="tanggal"></span></p>
-<p>Login sebagai: <b id="roleInfo"></b></p>
-<button class="danger" onclick="logout()">Keluar</button>
-</div>
+    <div class="panel">
+        <h3>Registrasi Pejuang Begadang</h3>
+        <input type="text" id="regNama" placeholder="Nama Anggota">
+        <input type="file" id="regFoto" accept="image/*">
+        <button class="btn-gold" onclick="daftar()">Masuk Daftar Jaga</button>
+    </div>
 
-<div class="card">
-<h3>📸 Kamera Selfie</h3>
-<video id="video" autoplay playsinline></video>
-<button class="primary" onclick="ambilFoto()">Ambil Selfie & Absen</button>
-<canvas id="canvas" style="display:none;"></canvas>
-</div>
+    <div class="panel">
+        <h3>Laporan Pos Ronda Malam</h3>
+        <div id="statistik" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; font-weight: bold;">
+            Memantau situasi...
+        </div>
+    </div>
 
-<div class="card">
-<h3>Data Absensi Hari Ini</h3>
-<table>
-<thead>
-<tr>
-<th>Nama</th>
-<th>Jam</th>
-<th>Status</th>
-<th>Lokasi</th>
-<th>Foto</th>
-</tr>
-</thead>
-<tbody id="list"></tbody>
-</table>
-</div>
+    <div class="panel">
+        <h3>Kamar Komando (Admin)</h3>
+        <input type="password" id="adminPass" placeholder="Sandi Rahasia">
+        <button class="btn-gold" onclick="loginAdmin()">Masuk Singgasana</button>
+        <div id="adminPanel" style="display:none; margin-top:15px;">
+            <button class="btn-gold" style="background:var(--crimson); color:white" onclick="resetAbsen()">Reset Absen Hari Baru</button>
+        </div>
+    </div>
+
+    <h3>Daftar Pasukan Begadang</h3>
+    <div class="grid" id="list"></div>
 
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
 <script>
-let db = JSON.parse(localStorage.getItem("absenPuasa")) || [];
-let today = new Date().toLocaleDateString();
-let currentUser = "";
-let fotoData = "";
-let lokasiData = "";
+/* KONFIGURASI FIREBASE */
+const firebaseConfig = {
+    apiKey: "AIzaSyDAeTn9OXkJP5Krlk2J2xtqVqRH6yAdjys",
+    authDomain: "tes-mode-55a53.firebaseapp.com",
+    databaseURL: "https://tes-mode-55a53-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "tes-mode-55a53",
+    storageBucket: "tes-mode-55a53.appspot.com",
+    messagingSenderId: "187568625202",
+    appId: "1:187568625202:web:f7adc75686625a0b8a4e2b"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const anggotaRef = db.ref("anggota_kerajaan");
 
-tanggal.innerText = today;
+let isInitialLoad = true;
 
-function masuk(){
-if(!namaLogin.value) return alert("Masukkan nama dulu");
-currentUser = namaLogin.value;
-loginPage.style.display="none";
-mainPage.style.display="block";
-roleInfo.innerText = currentUser;
-startCamera();
-render();
+/* FUNGSI DAFTAR */
+function daftar() {
+    const nama = document.getElementById("regNama").value.trim();
+    const file = document.getElementById("regFoto").files[0];
+    if(!nama || !file) return alert("Isi nama dan foto!");
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        anggotaRef.push({
+            nama: nama,
+            foto: e.target.result,
+            status: "Tidur"
+        });
+        alert("Berhasil Terdaftar!");
+        document.getElementById("regNama").value = "";
+    };
+    reader.readAsDataURL(file);
 }
 
-function startCamera(){
-navigator.mediaDevices.getUserMedia({
-video:{facingMode:"user"}
-})
-.then(stream=>{
-video.srcObject = stream;
-})
-.catch(()=>{
-alert("Kamera tidak diizinkan atau harus pakai HTTPS / Live Server");
+function loginAdmin() {
+    if(document.getElementById("adminPass").value === "RAJA123") {
+        document.getElementById("adminPanel").style.display = "block";
+    } else {
+        alert("Akses Ditolak!");
+    }
+}
+
+function updateStatus(id, stat) {
+    anggotaRef.child(id).update({ status: stat });
+}
+
+function resetAbsen() {
+    if(confirm("Reset semua data hari ini?")) {
+        anggotaRef.once("value", (snap) => {
+            snap.forEach(c => anggotaRef.child(c.key).update({status: "Tidur"}));
+        });
+    }
+}
+
+// Sinkronisasi Realtime
+anggotaRef.on("value", (snapshot) => {
+    const data = snapshot.val();
+    const list = document.getElementById("list");
+    const stats = document.getElementById("statistik");
+    list.innerHTML = "";
+    
+    let count = { Standby: 0, Tumbang: 0, Ghoib: 0, Sahur: 0, Tadarus: 0, Tidur: 0 };
+
+    for(let id in data) {
+        const a = data[id];
+        // Pastikan status ada di objek count agar tidak error
+        if(count[a.status] !== undefined) count[a.status]++;
+        
+        let sCls = "status-" + a.status.toLowerCase();
+        
+        list.innerHTML += `
+            <div class="card">
+                <img src="${a.foto}">
+                <br><span class="status-tag ${sCls}">${a.status}</span>
+                <h4 style="font-family:'Cinzel'; margin: 5px 0;">${a.nama}</h4>
+                <div class="btn-group">
+                    <button class="btn-action bg-standby" onclick="updateStatus('${id}', 'Standby')">Standby</button>
+                    <button class="btn-action bg-tumbang" onclick="updateStatus('${id}', 'Tumbang')">Tumbang</button>
+                    <button class="btn-action bg-ghoib" onclick="updateStatus('${id}', 'Ghoib')">Ghoib</button>
+                    <button class="btn-action bg-sahur" onclick="updateStatus('${id}', 'Sahur')">Sahur</button>
+                    <button class="btn-action bg-tadarus" onclick="updateStatus('${id}', 'Tadarus')" style="grid-column: span 2">Tadarus</button>
+                </div>
+            </div>`;
+    }
+
+    stats.innerHTML = `
+        <span style="color:#16a34a">☕ Udah-di-tempat: ${count.Standby}</span>
+        <span style="color:#ca8a04">😴 ketiduran: ${count.Tumbang}</span>
+        <span style="color:#dc2626">👻 gak ada kabar: ${count.Ghoib}</span>
+        <span style="color:#7c3aed">🍚 Sahur: ${count.Sahur}</span>
+        <span style="color:#0891b2">📖 Tadarus: ${count.Tadarus}</span>
+    `;
 });
-}
-
-function ambilFoto(){
-canvas.width = video.videoWidth;
-canvas.height = video.videoHeight;
-canvas.getContext("2d").drawImage(video,0,0);
-fotoData = canvas.toDataURL("image/png");
-
-navigator.geolocation.getCurrentPosition(pos=>{
-lokasiData =
-pos.coords.latitude.toFixed(5)+","+
-pos.coords.longitude.toFixed(5);
-
-simpanAbsen();
-
-},{
-enableHighAccuracy:true,
-timeout:10000
-});
-}
-
-function simpanAbsen(){
-db.push({
-nama:currentUser,
-tanggal:today,
-jam:new Date().toLocaleTimeString(),
-status:new Date().getHours()>8?"Terlambat":"Tepat Waktu",
-lokasi:lokasiData,
-foto:fotoData
-});
-
-localStorage.setItem("absenPuasa",JSON.stringify(db));
-render();
-alert("Absensi berhasil!");
-}
-
-function render(){
-list.innerHTML="";
-db.forEach(d=>{
-if(d.tanggal==today){
-list.innerHTML+=`
-<tr>
-<td>${d.nama}</td>
-<td>${d.jam}</td>
-<td>${d.status}</td>
-<td>${d.lokasi}</td>
-<td><img src="${d.foto}"></td>
-</tr>
-`;
-}
-});
-}
-
-function logout(){
-location.reload();
-}
 </script>
 
 </body>
